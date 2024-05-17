@@ -17,7 +17,7 @@ const Terminal = () => {
 
 
         const term=new Xterminal({
-            rows: 20,
+            rows: 18,
             // cols: 40,
         });
         term.open(terminalRef.current)
