@@ -18,8 +18,10 @@ const Terminal = () => {
 
         const term=new Xterminal({
             rows: 20,
+            // cols: 40,
         });
         term.open(terminalRef.current)
+        socket.emit('terminal:write','cd ./user')
 
         term.onData((data)=>{
             socket.emit('terminal:write',data)
