@@ -2,6 +2,7 @@ const express = require("express");
 const { createServer } = require("node:http");
 const { join } = require("node:path");
 const { Server } = require("socket.io");
+const cors = require('cors')
 
 var os = require("os");
 var pty = require("node-pty");
@@ -18,7 +19,10 @@ var ptyProcess = pty.spawn(shell, [], {
 
 const app = express();
 const server = createServer(app);
-const io = new Server(server);
+const io = new Server(server,{cors:'*'});
+
+
+app.use(cors())
 
 const PORT = 9000;
 
