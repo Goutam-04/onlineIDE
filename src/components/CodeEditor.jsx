@@ -17,6 +17,7 @@ const CodeEditor = () => {
   const [code,setCode] = useState("")
   const [theme, setTheme] = useState("blackboard");
 const [language, setLanguage] = useState("C++");
+const [fontSize, setFontSize] = useState(16);
 
 const handleEditorChange = (value) => {
   setCode(value);
@@ -48,10 +49,10 @@ const handleSubmit= async ()=>{
 
 function loadTheme() {
   let th = { label: "Blackboard", value: "blackboard", key: "blackboard" };
-  if (localStorage.getItem("usertheme")) {
-    console.log("update theme from local storage");
-    th = JSON.parse(localStorage.getItem("usertheme"));
-  }
+  // if (localStorage.getItem("usertheme")) {
+  //   console.log("update theme from local storage");
+  //   th = JSON.parse(localStorage.getItem("usertheme"));
+  // }
   return th;
 }
 
@@ -62,7 +63,7 @@ async function handleThemeChange(th) {
   console.log("calling define theme ");
   defineTheme(theme.value).then(() => {
     setTheme(theme);
-    localStorage.setItem("usertheme", JSON.stringify(theme));
+    // localStorage.setItem("usertheme", JSON.stringify(theme));
   });
 }
 
@@ -95,12 +96,14 @@ useEffect(() => {
               Font Size
             </label>
             <input
-              type="number"
-              className="form-control px-3 py-1  text-gray-700 bg-white  border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              id="fontsize_lable"
-              placeholder="Font size"
-              style={{
-                width: "80px",
+               type="number"
+                  className="form-control px-3 py-1  text-gray-700 bg-white  border border-solid border-gray-300 rounded transition ease-in-out m-0  focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                  id="fontsize_lable"
+                  placeholder="Font size"
+                  value={fontSize}
+                  onChange={(e) => setFontSize(parseInt(e.target.value))}
+                  style={{
+                    width: "80px",
               }}
             />
           </div>
@@ -179,8 +182,8 @@ useEffect(() => {
 
         >
             <Editor
-                // options={Fontoptions}
-                height={"100vh"}
+                options={{fontSize:fontSize}}
+                height={"90vh"}
                 width={`60vw`}
                 language={language || "javascript"}
                 value={code}
