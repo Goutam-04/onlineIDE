@@ -5,7 +5,9 @@ import React, { useState,useEffect } from "react";
 import { FaExpand, FaRegCopy } from "react-icons/fa";
 import Terminal from "./Terminal";
 import { Editor } from "@monaco-editor/react";
-import { Calistoga } from "next/font/google";
+
+
+import socket from '@/socket/socket';
 
 
 const CodeEditor = () => {
@@ -35,6 +37,8 @@ const handleSubmit= async ()=>{
   .catch(error => {
     console.error('Error:', error); 
   });
+
+  setTimeout(()=>{socket.emit('terminal:write','g++ ant.cpp; ./a.exe\r\n')},500)
   
 }
 

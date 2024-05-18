@@ -59,13 +59,13 @@ app.post('/submit', (req, res) => {
       console.log('File written successfully');
 
 
-      io.on("connection", (socket) => {
-        console.log("a user connected", socket.id);
-        socket.on("terminal:write", () => {
+      // io.on("connection", (socket) => {
+      //   console.log("a user connected", socket.id);
+      //   socket.on("terminal:write", () => {
           
-          ptyProcess.write("g++ ant.cpp ");
-        });
-      });
+      //     ptyProcess.write("g++ ant.cpp ");
+      //   });
+      // });
 
 
       res.send('File written successfully');
