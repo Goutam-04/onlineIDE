@@ -78,7 +78,7 @@ useEffect(() => {
     <>
 
     <div>
-      <div className="h-1 w-full bg-gradient-to-r from-pink-500 via-red-500 to-yellow-500 transition duration-200"></div>
+      
 
       <div className="flex flex-row border-2 border-t-0 border-gray-600 gap-4">
       
@@ -185,7 +185,7 @@ useEffect(() => {
                 options={{fontSize:fontSize}}
                 height={"90vh"}
                 width={`60vw`}
-                language={language || "javascript"}
+                language={"cpp"}
                 value={code}
                 theme={theme.value}
                 autoIndent={true}
