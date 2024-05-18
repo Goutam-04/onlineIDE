@@ -5,8 +5,10 @@ import React, { useState,useEffect } from "react";
 import { FaExpand, FaRegCopy } from "react-icons/fa";
 import Terminal from "./Terminal";
 import { Editor } from "@monaco-editor/react";
-import { ThemeDropdown, LanguagesDropdown} from "./Dropdown";
+import { ThemeDropdown} from "./Dropdown";
 import { defineTheme } from "../lib/defineTheme";
+import copy from "copy-to-clipboard";
+
 
 import socket from '@/socket/socket';
 
@@ -16,7 +18,7 @@ const CodeEditor = () => {
 
   const [code,setCode] = useState("")
   const [theme, setTheme] = useState("blackboard");
-const [language, setLanguage] = useState("C++");
+const [language, setLanguage] = useState("cpp");
 const [fontSize, setFontSize] = useState(16);
 
 const handleEditorChange = (value) => {
@@ -74,9 +76,67 @@ useEffect(() => {
 }, []);
 
 
+const handleFullScreen = () => {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen()
+  } else {
+    document.exitFullscreen();
+  }
+};
+
+const resetCode = () => {
+  let text = "The code will be reset to default";
+  if (window.confirm(text)) {
+    setCode("");
+  }
+};
+
+const saveFile = (data) => {
+  const element = document.createElement("a");
+  const file = new Blob([data], { type: "text/plain" });
+  const timestamp = new Date().toISOString().replace(/[-:.]/g, '');
+  const defaultFilename = `${language.value}-code-${timestamp}.cpp`;
+
+  // Prompt the user for input to change the filename
+  const userInput = window.prompt("Please enter a filename:", defaultFilename);
+  if (!userInput) {
+    // If user cancels the prompt, exit function
+    return;
+  }
+  
+ 
+  const filename = userInput.endsWith(".cpp") ? userInput : `${userInput}.cpp`;
+
+
+
+  element.href = URL.createObjectURL(file);
+
+  element.download = filename;
+  document.body.appendChild(element); 
+  element.click();
+};
+
+const copyCode = () => {
+  copy(code);
+  showSuccessToast("Copied to Clipboard");
+};
+
+const showSuccessToast = (message) => {
+  const toast = document.getElementById("toast");
+  toast.textContent = message;
+  toast.style.display = "block";
+
+  // Hide the toast after a delay
+  setTimeout(() => {
+    toast.style.display = "none";
+  }, 2000); // Adjust the delay as needed (in milliseconds)
+};
+
+
   return (
     <>
 
+<div id="toast" class="toast"></div>
     <div>
       
 
@@ -116,7 +176,7 @@ useEffect(() => {
           }}
         >
           <button
-         
+            onClick={copyCode}
             type="button"
             id="copytxt"
             className="flex items-center py-2 px-4 mr-3  text-xs font-medium  rounded-lg border focus:outline-none hover:bg-gray-700 hover:text-blue-700 focus:z-10  focus:ring-gray-500 bg-gray-800 border-gray-600 hover:text-white hover:bg-gray-700"
@@ -124,7 +184,7 @@ useEffect(() => {
             <FaRegCopy fontSize={18} color="white" />
           </button>
           <button
-            
+            onClick={handleFullScreen}
             type="button"
             className="flex items-center py-2 px-4 mr-3 text-xs font-medium  rounded-lg border focus:outline-none hover:bg-gray-700 hover:text-blue-700 focus:z-10  focus:ring-gray-500 bg-gray-800 border-gray-600 hover:text-white hover:bg-gray-700"
           >
@@ -142,7 +202,7 @@ useEffect(() => {
           </button>
 
           <button
-            
+            onClick={saveFile}
             type="button"
             className="text-white bg-indigo-600 hover:bg-indigo-800   focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center focus:ring-[#2557D6]/50 mr-2"
           >
@@ -150,19 +210,13 @@ useEffect(() => {
           </button>
 
           <button
-            
+            onClick={resetCode}
             type="button"
             className="text-white bg-indigo-600 hover:bg-indigo-800   focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center focus:ring-[#2557D6]/50 mr-2"
           >
             Erase Code
           </button>
-          <button
-           
-            type="button"
-            className="text-white bg-[#db2777] hover:bg-[#ec4899]   focus:outline-none font-medium rounded-lg text-sm px-3 py-2 text-center inline-flex items-center focus:ring-[#2557D6]/50 mr-2"
-          >
-            Share
-          </button>
+         
         </div>
       </div>
       
@@ -185,7 +239,7 @@ useEffect(() => {
                 options={{fontSize:fontSize}}
                 height={"90vh"}
                 width={`60vw`}
-                language={"cpp"}
+                language={language}
                 value={code}
                 theme={theme.value}
                 autoIndent={true}
