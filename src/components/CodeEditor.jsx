@@ -5,14 +5,18 @@ import React, { useState,useEffect } from "react";
 import { FaExpand, FaRegCopy } from "react-icons/fa";
 import Terminal from "./Terminal";
 import { Editor } from "@monaco-editor/react";
-
+import { ThemeDropdown, LanguagesDropdown} from "./Dropdown";
+import { defineTheme } from "../lib/defineTheme";
 
 import socket from '@/socket/socket';
 
 
 const CodeEditor = () => {
 
-const [code,setCode] = useState("")
+
+  const [code,setCode] = useState("")
+  const [theme, setTheme] = useState("blackboard");
+const [language, setLanguage] = useState("C++");
 
 const handleEditorChange = (value) => {
   setCode(value);
@@ -42,6 +46,32 @@ const handleSubmit= async ()=>{
   
 }
 
+function loadTheme() {
+  let th = { label: "Blackboard", value: "blackboard", key: "blackboard" };
+  if (localStorage.getItem("usertheme")) {
+    console.log("update theme from local storage");
+    th = JSON.parse(localStorage.getItem("usertheme"));
+  }
+  return th;
+}
+
+async function handleThemeChange(th) {
+  const theme = th;
+
+  console.log(theme);
+  console.log("calling define theme ");
+  defineTheme(theme.value).then(() => {
+    setTheme(theme);
+    localStorage.setItem("usertheme", JSON.stringify(theme));
+  });
+}
+
+useEffect(() => {
+  const initialTheme = loadTheme();
+  setTheme(initialTheme);
+  defineTheme(initialTheme.value);
+}, []);
+
 
   return (
     <>
@@ -52,15 +82,10 @@ const handleSubmit= async ()=>{
       <div className="flex flex-row border-2 border-t-0 border-gray-600 gap-4">
       
 
-        {/* <div className="dropdownInner">
-          <LanguagesDropdown
-            onSelectChange={onSelectChange}
-            Userlanguage={language}
-          />
-        </div> */}
-        {/* <div className="dropdownInner">
-          <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
-        </div> */}
+        
+        <div className="dropdownInner">
+        <ThemeDropdown handleThemeChange={handleThemeChange} theme={theme} />
+        </div>
         <div className="px-4 justify-end">
           <div className="d-flex px-2 py-1 rounded-lg border focus:outline-none hover:bg-gray-700 focus:z-10  focus:ring-gray-500 bg-gray-800 border-gray-600 hover:text-white hover:bg-gray-700">
             <label
@@ -157,9 +182,9 @@ const handleSubmit= async ()=>{
                 // options={Fontoptions}
                 height={"100vh"}
                 width={`60vw`}
-                // language={language || "javascript"}
+                language={language || "javascript"}
                 value={code}
-                // theme={theme}
+                theme={theme.value}
                 autoIndent={true}
                 onChange={handleEditorChange}
             />
