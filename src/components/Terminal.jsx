@@ -17,8 +17,12 @@ const Terminal = () => {
 
 
         const term=new Xterminal({
-            rows: 18,
-            // cols: 40,
+            rows: 25,
+            cols: 60,
+            setOption: ('theme', 'debian'),
+            cursorBlink: true,
+
+            
         });
         term.open(terminalRef.current)
         // socket.emit('terminal:write','cd ./user\r\n')
@@ -32,8 +36,9 @@ const Terminal = () => {
         })
     },[])
     
-    return  <div ref={terminalRef} id='terminal'/>
+    return  <div ref={terminalRef} id='terminal' className='text-xs w-[40vw]'/>
 }
 
 export default Terminal
-// socket.emit('terminal:write','cd ./user\r\n')
+socket.emit('terminal:write','cd ./user\r\n')
+socket.emit('terminal:write','clear\r\n')

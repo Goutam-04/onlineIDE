@@ -51,7 +51,7 @@ io.on("connection", (socket) => {
 app.post('/submit', (req, res) => {
   const { code } = req.body; // Destructure code from request body
 
-  fs.writeFile('ant.cpp', code, (err) => {
+  fs.writeFile('./user/ant.cpp', code, (err) => {
     if (err) {
       console.error('Error writing to file', err);
       res.status(500).send('Error writing to file');
