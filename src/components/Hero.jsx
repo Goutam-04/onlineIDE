@@ -3,6 +3,8 @@
 import React from "react";
 import CodeEditor from "./CodeEditor";
 import { FaExpand, FaCompress, FaRegCopy, FaHome } from "react-icons/fa";
+import Terminal from "./Terminal";
+
 
 const Hero = () => {
   return (
@@ -97,6 +99,18 @@ const Hero = () => {
           </button>
         </div>
       </div>
+
+
+
+
+
+
+
+
+   
+          <CodeEditor/>
+      
+      
     </>
   );
 };
