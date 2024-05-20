@@ -2,32 +2,33 @@ export const customStyles = {
     control: (styles) => ({
         ...styles,
         width: "100%",
-        maxWidth: "14rem",
-        minWidth: "12rem",
-        borderRadius: "5px",
-        color: "#fff !important",
-        fontSize: "0.8rem",
-        lineHeight: "1.75rem",
-        backgroundColor: "transparent",
+        maxWidth: "12rem",
+        minWidth: "10rem",
+        borderRadius: "10px",
+        color: "#0c4a6e !important",
+        fontSize: "1rem",
+        lineHeight: "2rem",
+        backgroundColor: "#f1f5f9",
         cursor: "pointer",
         border: "none",
-
+        display: "flex",
+        alignItems: "center",
+        marginTop: "2px", // Added margin-top
         ":hover": {
-
             boxShadow: "none",
         },
     }),
     option: (styles) => {
         return {
             ...styles,
-            color: "#000",
-            fontSize: "0.8rem",
-            lineHeight: "1.75rem",
+            color: "#f1f5f9",
+            fontSize: "1rem",
+            lineHeight: "2rem",
             width: "100%",
-            background: "#fff",
+            background: "#0c4a6e",
             ":hover": {
-                backgroundColor: "rgb(243 244 246)",
-                color: "#000",
+                backgroundColor: "rgb(12 74 110 / 0.8)",
+                color: "#f1f5f9",
                 cursor: "pointer",
             },
         };
@@ -35,20 +36,19 @@ export const customStyles = {
     menu: (styles) => {
         return {
             ...styles,
-            backgroundColor: "#fff",
-            maxWidth: "14rem",
+            backgroundColor: "#0c4a6e",
+            maxWidth: "12rem",
             border: "2px solid #000000",
-            borderRadius: "5px",
+            borderRadius: "10px",
             boxShadow: "5px 5px 0px 0px rgba(0,0,0);",
         };
     },
-
     placeholder: (defaultStyles) => {
         return {
             ...defaultStyles,
-            color: "#fff !important",
-            fontSize: "0.8rem",
-            lineHeight: "1.75rem",
+            color: "#0c4a6e !important",
+            fontSize: "1rem",
+            lineHeight: "2rem",
         };
     },
 };

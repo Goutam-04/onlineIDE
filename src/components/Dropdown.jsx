@@ -1,7 +1,7 @@
 import React from 'react'
 import Select from "react-select";
 import monacoThemes from "monaco-themes/themes/themelist";
-import { languageOptions } from "../constants/languageOptions";
+// import { languageOptions } from "../constants/languageOptions";
 import { customStyles } from "../constants/customStyles";
 
 const ThemeDropdown = ({ handleThemeChange, theme }) => {
