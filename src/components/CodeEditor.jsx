@@ -8,6 +8,7 @@ import { Editor } from "@monaco-editor/react";
 import { ThemeDropdown } from "./Dropdown";
 import { defineTheme } from "../lib/defineTheme";
 import copy from "copy-to-clipboard";
+import Stopwatch from "./Stopwatch";
 
 import socket from "@/socket/socket";
 
@@ -43,7 +44,7 @@ const CodeEditor = () => {
       });
 
     setTimeout(() => {
-      socket.emit("terminal:write", "g++ ant.cpp; ./a.exe\r\n");
+      socket.emit("terminal:write", "clear; g++ ant.cpp; ./a.exe\r\n");
     }, 500);
   };
 
@@ -260,11 +261,8 @@ const CodeEditor = () => {
             style={{ flex: "1 1 0%" }}
           >
             <Terminal />
-            <div className="flex flex-col items-end">
-              {/* <CustomInput
-              customInput={customInput}
-              setCustomInput={setCustomInput}
-            /> */}
+            <div className="flex flex-col items-center p-4 pt-0 border-t-2  border-slate-100">
+              <Stopwatch/>
             </div>
           </div>
         </div>
