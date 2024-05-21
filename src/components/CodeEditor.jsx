@@ -9,6 +9,7 @@ import { ThemeDropdown } from "./Dropdown";
 import { defineTheme } from "../lib/defineTheme";
 import copy from "copy-to-clipboard";
 import Stopwatch from "./Stopwatch";
+import Image from "next/image";
 
 import socket from "@/socket/socket";
 
@@ -138,6 +139,9 @@ const CodeEditor = () => {
       <div className="h-2 w-full bg-sky-950 border-r-2 border-l-2 border-t-2 border-slate-100"></div>
       <div>
         <div className="flex flex-row border-2 border-t-0 border-slate-100 bg-sky-950 gap-4 ">
+        <div className="logo flex justify-start items-center ml-12 mb-2">
+      <Image src="/logo.png" alt="Logo" width={30} height={30} />
+    </div>
           <div className="dropdownInner ml-20   text center">
             <ThemeDropdown
               handleThemeChange={handleThemeChange}
