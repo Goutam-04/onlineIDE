@@ -4,12 +4,14 @@ import { Terminal as Xterminal } from '@xterm/xterm';
 import '@xterm/xterm/css/xterm.css'
 import { useEffect, useRef } from 'react';
 
-import socket from '@/socket/socket';
+import socket from '@/socket/socket.js';
 
-const Terminal = () => {
+const Terminal = (props) => {
 
     const terminalRef=useRef();
     const isRender=useRef(false);
+    
+    var counter=props.counter;
 
     useEffect(()=>{
         if (isRender.current==true)return;
@@ -28,11 +30,15 @@ const Terminal = () => {
         // socket.emit('terminal:write','cd ./user\r\n')
         
         term.onData((data)=>{
+            
             socket.emit('terminal:write',data)
         })
         
         socket.on('terminal:data',(data)=>{
+            if(counter>=10){socket.emit('end');}
+            console.log(counter);
             term.write(data);
+            counter++;
         })
     },[])
     

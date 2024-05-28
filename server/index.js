@@ -16,7 +16,7 @@ var ptyProcess = pty.spawn(shell, [], {
   name: "xterm-color",
   cols: 80,
   rows: 30,
-  cwd: process.env.INIT_CWD,
+  cwd: './user',
   env: process.env,
 });
 
@@ -28,10 +28,11 @@ const io = new Server(server,{cors:'*'});
 app.use(bodyParser.json());
 app.use(cors())
 
-const PORT = 9000;
-
+const PORT = process.env.port||9000;
+let socketInstance;
 
 // io.on('terminal:write','cd ./user')
+
 
 
 ptyProcess.onData((data) => {
@@ -43,8 +44,13 @@ io.on("connection", (socket) => {
   console.log("a user connected", socket.id);
   socket.on("terminal:write", (data) => {
     console.log("Term", data);
-    ptyProcess.write(data);
+    if (data.trim().toLowerCase().startsWith("cd")) {
+      console.log("CD command disabled");
+      return; // ignore the CD command
+    }
+        ptyProcess.write(data);
   });
+
 });
 
 

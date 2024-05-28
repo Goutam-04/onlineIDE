@@ -11,7 +11,7 @@ import copy from "copy-to-clipboard";
 import Stopwatch from "./Stopwatch";
 import Image from "next/image";
 
-import socket from "@/socket/socket";
+import socket from "@/socket/socket.js";
 
 const CodeEditor = () => {
   const snippet = `#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n\tcout << "Hello, World!";\n\treturn 0;\n}`;
@@ -21,12 +21,15 @@ const CodeEditor = () => {
   const [language, setLanguage] = useState("cpp");
   const [fontSize, setFontSize] = useState(16);
 
+  let counter=0;
+
   const handleEditorChange = (value) => {
     setCode(value);
     onChange("code", value);
   };
 
   const handleSubmit = async () => {
+    counter=0;
     const codeVariable = code;
 
     await fetch("http://localhost:9000/submit", {
@@ -47,6 +50,11 @@ const CodeEditor = () => {
     setTimeout(() => {
       socket.emit("terminal:write", "clear; g++ ant.cpp; ./a.exe\r\n");
     }, 500);
+
+    //to write ctrl+c=\x03 for infinite loop case and \r\n for entr
+    setTimeout(() => {
+      socket.emit("terminal:write", "\x03\r\n");
+    }, 180000);
   };
 
   function loadTheme() {
@@ -119,7 +127,7 @@ const CodeEditor = () => {
 
   const copyCode = () => {
     copy(code);
-    showSuccessToast("Copied to Clipboard");
+    showSuccessToast("✓ Copied to Clipboard");
   };
 
   const showSuccessToast = (message) => {
@@ -130,12 +138,24 @@ const CodeEditor = () => {
     // Hide the toast after a delay
     setTimeout(() => {
       toast.style.display = "none";
-    }, 2000); // Adjust the delay as needed (in milliseconds)
+    }, 3000); // Adjust the delay as needed (in milliseconds)
   };
 
   return (
     <>
-      <div id="toast" class="toast"></div>
+
+
+    
+    {/* -------------------------------- toast  FOR COPY-----------------------*/}
+
+      <div id="toast" className="fixed hidden top-20 right-4 z-20 bg-orange-500 text-white px-4 py-2 rounded-md shadow-lg transition duration-300 ease-in-out"></div>
+      
+      
+
+      {/* ----------------------------------ACTUAL EDITOR CODE STARTS FORM HERE------------------------- */}
+      
+      
+      
       <div className="h-2 w-full bg-sky-950 border-r-2 border-l-2 border-t-2 border-slate-100"></div>
       <div>
         <div className="flex flex-row border-2 border-t-0 border-slate-100 bg-sky-950 gap-4 ">
@@ -264,7 +284,7 @@ const CodeEditor = () => {
             className="flex  flex-col container__right relative overflow-hidden border-slate-100 bg-sky-950 border-2 border-t-0 h-full px-1 pt-1"
             style={{ flex: "1 1 0%" }}
           >
-            <Terminal />
+            <Terminal counter={counter} />
             <div className="flex flex-col items-center p-4 pt-0 border-t-2  border-slate-100">
               <Stopwatch/>
             </div>
