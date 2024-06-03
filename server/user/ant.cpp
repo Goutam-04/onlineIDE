@@ -1,6 +1,7 @@
-#include <iostream>
+#include <bits/stdc++.h>
 using namespace std;
-int main () {
-for( ; ; ) { cout << "This is the infinite loop." << endl; }
-return 0;
+
+int main() {
+	for(int i=1; i<100; i++){cout<<i<<" ";}
+	return 0;
 }

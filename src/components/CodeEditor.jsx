@@ -232,7 +232,7 @@ const CodeEditor = () => {
         </div>
       </div>
       <div>
-        <div className="editorlayout flex flex-col lg:flex-row  space-x-4 items-start border-2 border-t-0 border-b-0 border-slate-100 bg-sky-950">
+        <div className="editorlayout flex flex-col lg:flex-row  lg:space-x-4 items-start border-2 border-t-0 border-b-0 border-slate-100 bg-sky-950">
           <div className="flex flex-col h-full justify-start items-end container__left">
             <div className="overlay mt-1 overflow-hidden w-full h-full shadow-4xl">
               <Editor
@@ -273,15 +273,13 @@ const CodeEditor = () => {
           </svg>
         </div> */}
 
-          <div
-            className="flex flex-col container__right relative overflow-hidden border-slate-100 bg-sky-950 border-2 border-t-0 h-full px-1 pt-1"
-            style={{ flex: "1 1 0%" }}
-          >
-            <Terminal counter={counter} />
-            <div className="flex flex-col items-center p-4 pt-0 border-t-2  border-slate-100">
-              <Stopwatch />
-            </div>
-          </div>
+        <div className="flex flex-col relative overflow-hidden border-slate-100 bg-sky-950 border-2 border-t-2 lg:border-t-0 h-full px-1 pt-1 ">
+  <Terminal counter={counter} />
+  <div className="flex flex-col items-center p-4 pt-0 border-t-2 border-slate-100">
+    <Stopwatch />
+  </div>
+</div>
+
         </div>
       </div>
     </>

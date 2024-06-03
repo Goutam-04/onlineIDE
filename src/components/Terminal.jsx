@@ -42,7 +42,7 @@ const Terminal = (props) => {
         })
     },[])
     
-    return  <div ref={terminalRef} id='terminal' className='text-xs w-[40vw]'/>
+    return  <div ref={terminalRef} id='terminal' className='text-xs w-[100vw]'/>
 }
 
 export default Terminal
