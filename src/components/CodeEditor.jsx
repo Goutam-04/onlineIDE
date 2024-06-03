@@ -10,6 +10,7 @@ import { defineTheme } from "../lib/defineTheme";
 import copy from "copy-to-clipboard";
 import Stopwatch from "./Stopwatch";
 import Image from "next/image";
+import Link from "next/link";
 
 import socket from "@/socket/socket.js";
 
@@ -20,6 +21,11 @@ const CodeEditor = () => {
   const [theme, setTheme] = useState("blackboard");
   const [language, setLanguage] = useState("cpp");
   const [fontSize, setFontSize] = useState(16);
+  const [editorWidth, setEditorWidth] = useState("60vw");
+  const [editorHeight, setEditorHeight] = useState("90vh")
+
+
+  
 
   let counter = 0;
 
@@ -141,6 +147,23 @@ const CodeEditor = () => {
     }, 3000); // Adjust the delay as needed (in milliseconds)
   };
 
+  //the window size measurer for moonaco editore width calculation and font size also
+  useEffect(() => {
+    const handleResize = () => {
+      const newWidth = window.innerWidth > 768 ? "60vw" : "98vw";
+      const newHeight = window.innerWidth > 768 ? "90vh" : "70vh";
+      const newFontSize=window.innerWidth <768? 10:16;
+      setEditorWidth(newWidth);
+      setEditorHeight(newHeight);
+      setFontSize(newFontSize)
+    };
+    window.addEventListener("resize", handleResize);
+    handleResize();
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <>
       {/* -------------------------------- toast  FOR COPY-----------------------*/}
@@ -154,7 +177,7 @@ const CodeEditor = () => {
 
       {/* <div className="h-2 w-full bg-sky-950 border-r-2 border-l-2 border-t-2 border-slate-100"></div> */}
       <div>
-        <div className="flex flex-row flex-wrap md:flex-nowrap border-2  border-slate-100 bg-sky-950 gap-1 md:gap-4 gap-y-3.5 md:gap-y-0  p-1 ">
+        <div className="flex flex-row flex-wrap md:flex-nowrap border-2  border-slate-100 bg-sky-950 gap-1 md:gap-4 gap-y-2 md:gap-y-0  p-1 ">
           <div className="logo flex  justify-start items-center ml-12 ">
             <Image src="/logo.png" alt="Logo" width={30} height={30} />
           </div>
@@ -164,7 +187,7 @@ const CodeEditor = () => {
               theme={theme}
             />
           </div>
-          <div className="hidden md:flex-wrap md:flex-nowrap items-center px-4 w-full md:w-auto ">
+          <div className="hidden lg:flex items-center px-4 w-full md:w-auto ">
             <div className="flex items-center  md:mb-0 md:mr-4">
               <label
                 htmlFor="fontsize_label"
@@ -204,6 +227,7 @@ const CodeEditor = () => {
             >
               <FaExpand fontSize={16} color="white" />
             </button>
+<Link href="#terminal">
 
             <button
               onClick={handleSubmit}
@@ -212,6 +236,7 @@ const CodeEditor = () => {
             >
               Run
             </button>
+</Link>
 
             <button
               onClick={saveFile}
@@ -235,16 +260,17 @@ const CodeEditor = () => {
         <div className="editorlayout flex flex-col lg:flex-row  lg:space-x-4 items-start border-2 border-t-0 border-b-0 border-slate-100 bg-sky-950">
           <div className="flex flex-col h-full justify-start items-end container__left">
             <div className="overlay mt-1 overflow-hidden w-full h-full shadow-4xl">
-              <Editor
-                options={{ fontSize: fontSize }}
-                height={"90vh"}
-                width={`60vw`}
-                language={language}
-                value={code}
-                theme={theme.value}
-                autoIndent={true}
-                onChange={handleEditorChange}
-              />
+            <Editor
+  options={{ fontSize: fontSize }}
+  height={editorHeight}
+  width={editorWidth}
+  language={language}
+  value={code}
+  theme={theme.value}
+  autoIndent={true}
+  onChange={handleEditorChange}
+/>
+
             </div>
           </div>
 
@@ -273,7 +299,7 @@ const CodeEditor = () => {
           </svg>
         </div> */}
 
-        <div className="flex flex-col relative overflow-hidden border-slate-100 bg-sky-950 border-2 border-t-2 lg:border-t-0 h-full px-1 pt-1 ">
+        <div id="terminal" className="flex flex-col relative overflow-hidden border-slate-100 bg-sky-950 border-2 border-t-2 lg:border-t-0 h-full px-1 pt-1 ">
   <Terminal counter={counter} />
   <div className="flex flex-col items-center p-4 pt-0 border-t-2 border-slate-100">
     <Stopwatch />
