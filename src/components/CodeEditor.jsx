@@ -37,8 +37,8 @@ const CodeEditor = () => {
   const handleSubmit = async () => {
     counter = 0;
     const codeVariable = code;
-
-    await fetch("http://localhost:9000/submit", {
+    console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
+    await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/submit`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -54,7 +54,7 @@ const CodeEditor = () => {
       });
 
     setTimeout(() => {
-      socket.emit("terminal:write", "clear; g++ ant.cpp; ./a.exe\r\n");
+      socket.emit("terminal:write", "clear; g++ ant.cpp; ./a.out\r\n");
     }, 500);
 
     //to write ctrl+c=\x03 for infinite loop case and \r\n for entr
