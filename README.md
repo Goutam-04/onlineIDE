@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Online Compiler
+
+Welcome to the Online Compiler project! This project aims to provide an easy-to-use online C++ compiler. It is licensed under the GNU General Public License v3.0 and is open to contributions from the community.
 
 ## Getting Started
+Follow these steps to set up the project locally on your machine.
+### Prerequisites
+- Node.js
+- npm
 
-First, run the development server:
+### Clone the Repository
 
-```bash
+```sh
+git clone https://github.com/Goutam-04/onlineIDE.git
+cd online-compiler
+```
+#### Frontend Setup
+**1. Install the necessary packages:**
+```sh
+npm install
+```
+**2. Configure environment variables:***
+```sh
+mv .env.local.example .env.example
+```
+**3. Start the frontend development server:**
+```sh
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+```
+#### Backend Setup
+**1. Navigate to the server directory:**
+```sh
+cd server
+```
+**2. Install the necessary packages:**
+```sh
+npm install
+```
+**3. Start the backend server:**
+```sh
+node index.js
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Note for Windows Users
+This project works seamlessly on macOS and Linux. However, if you're using Windows, you might encounter difficulties with the node-pty module. Please refer to the [`node-pty documentation`](https://www.npmjs.com/package/node-pty) for installation guidance. If you need further assistance, feel free to contact me on [LinkedIn](https://www.linkedin.com/in/goutam-kumar-nayak/).
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+### Contributing
+We welcome contributions from the community! Here are a few ways you can help:
+* **UI improvements:** Enhance the look and feel of the application.
+* **Additional Languages:** Add support for more programming languages.
+* **Optimization:** Help make the React app faster and more efficient.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+**If you like the project, don't forget to give it a star⭐️ on GitHub—it’s a simple way to show appreciation!** If you have any other questions or need further assistance, feel free to ask. Happy coding! 🚀
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+### License
+This project is licensed under the GNU General Public License v3.0 - see the [LICENSE](LICENSE) file for details.
+### Stay Connected
+For updates and discussions, follow the project on GitHub and join our community. If you have any questions or need assistance, you can contact me directly on [LinkedIn](https://www.linkedin.com/in/goutam-kumar-nayak/).
