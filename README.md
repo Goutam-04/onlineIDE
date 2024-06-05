@@ -12,7 +12,7 @@ Follow these steps to set up the project locally on your machine.
 
 ```sh
 git clone https://github.com/Goutam-04/onlineIDE.git
-cd online-compiler
+cd onlineIDE
 ```
 #### Frontend Setup
 **1. Install the necessary packages:**
