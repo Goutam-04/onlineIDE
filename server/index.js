@@ -81,5 +81,5 @@ app.post('/submit', (req, res) => {
 
 
 server.listen(PORT, () => {
-  console.log("app is running");
+  console.log(`app is running on port ${PORT}`);
 });

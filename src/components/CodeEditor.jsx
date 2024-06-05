@@ -35,6 +35,7 @@ const CodeEditor = () => {
   };
 
   const handleSubmit = async () => {
+    showSuccessToast("Please wait for few seconds for first time");
     counter = 0;
     const codeVariable = code;
     console.log(process.env.NEXT_PUBLIC_BACKEND_URL);
