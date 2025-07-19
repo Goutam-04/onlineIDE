@@ -2,6 +2,10 @@
 using namespace std;
 
 int main() {
-	for(int i=1; i<100; i++){cout<<i<<" ";}
+	int a;
+	cout<<"enter a number: "<<endl;
+	cin >>a;
+	cout <<"your number is "<<a<<endl;
+	cout << "Hello, World!"<<endl;
 	return 0;
 }

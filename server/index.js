@@ -64,22 +64,12 @@ app.post('/submit', (req, res) => {
     } else {
       console.log('File written successfully');
 
-
-      // io.on("connection", (socket) => {
-      //   console.log("a user connected", socket.id);
-      //   socket.on("terminal:write", () => {
-          
-      //     ptyProcess.write("g++ ant.cpp ");
-      //   });
-      // });
-
-
       res.send('File written successfully');
     }
   });
 });
 
 
-server.listen(PORT, () => {
-  console.log(`app is running on port ${PORT}`);
+server.listen(PORT,'0.0.0.0', () => {
+  console.log("app is running");
 });
