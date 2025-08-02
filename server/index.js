@@ -5,6 +5,7 @@ const { Server } = require("socket.io");
 const cors = require('cors')
 const bodyParser = require('body-parser');
 const fs = require('fs');
+const path = require('path');
 
 
 var os = require("os");
@@ -27,9 +28,17 @@ const io = new Server(server,{cors:'*'});
 
 app.use(bodyParser.json());
 app.use(cors())
+// app.use(express.static(path.join(__dirname, 'public')));
 
 const PORT = process.env.port||9000;
 let socketInstance;
+
+
+// app.get('*', (req, res) => {
+//   res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+// });
+
+
 
 // io.on('terminal:write','cd ./user')
 
@@ -44,10 +53,10 @@ io.on("connection", (socket) => {
   console.log("a user connected", socket.id);
   socket.on("terminal:write", (data) => {
     console.log("Term", data);
-    if (data.trim().toLowerCase().startsWith("cd")) {
-      console.log("CD command disabled");
-      return; // ignore the CD command
-    }
+    // if (data.trim().toLowerCase().startsWith("cd")) {
+    //   console.log("CD command disabled");
+    //   return; // ignore the CD command
+    // }
         ptyProcess.write(data);
   });
 

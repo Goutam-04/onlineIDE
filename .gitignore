@@ -4,17 +4,21 @@
 /node_modules
 /.pnp
 .pnp.js
-.yarn/install-state.gz
+.yarn/install-state.gz   
+
+# build output
+/build
+/dist
+
+# next.js (Not needed for a Vite project)
+# /.next/
+# /out/
+
+# Vite
+/dist
 
 # testing
 /coverage
-
-# next.js
-/.next/
-/out/
-
-# production
-/build
 
 # misc
 .DS_Store
@@ -34,4 +38,3 @@ yarn-error.log*
 
 # typescript
 *.tsbuildinfo
-next-env.d.ts

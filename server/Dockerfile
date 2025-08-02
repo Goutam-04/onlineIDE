@@ -7,6 +7,7 @@ COPY package*.json ./
 
 # Install dependencies inside the container
 RUN npm install
+RUN npm rebuild node-pty
 
 # Now copy the full app source code
 COPY . .

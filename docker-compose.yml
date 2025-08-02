@@ -1,22 +1,28 @@
-version: '3.8'
+version: '0.1'
 
 services:
   backend:
     build:
-      context: ./server
+      context: ./server # Correct context path to your backend directory
       dockerfile: Dockerfile
     ports:
-      - "9000:9000"
-    container_name: backend
+      - "9000:9000" # Maps host port 9000 to container port 9000
+    container_name: backend1
+    # Optional: Add environment variables for local backend development here
+    # environment:
+    #   - NODE_ENV=development
+    #   - DB_HOST=localhost # Example
 
   frontend:
     build:
-      context: .
+      context: . # Correct context path to your frontend directory
       dockerfile: Dockerfile
     ports:
-      - "3000:3000"
+      - "5173:3000" # Maps host port 5173 to container port 3000 (Vite build served by 'serve')
     environment:
-      - NEXT_PUBLIC_BACKEND_URL=http://backend:9000
+      # This variable is crucial for your React app to know where your backend is
+      # 'backend' refers to the service name in docker-compose, which resolves to its internal IP
+      - VITE_BACKEND_URL=http://backend:9000
     depends_on:
-      - backend
-    container_name: frontend
+      - backend # Ensures backend starts before frontend
+    container_name: frontend1
